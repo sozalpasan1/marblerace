@@ -1,19 +1,67 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AI Marble Racing</title>
-  </head>
-  <body>
-    <div id="message">
-      <h2>forntie</h2>
-      <h1>Firebase Hosting Setup Complete</h1>
-      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
-      <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Marble Race</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Character Selection Screen -->
+    <div class="screen active" id="characterSelect">
+        <div class="header">
+            <h1>Select Two Characters</h1>
+            <p>Choose your marble racers!</p>
+        </div>
+        <div class="character-grid">
+            <div class="character-card" onclick="selectCharacter(this, '/api/placeholder/100/100')">
+                <img src="/api/placeholder/100/100" alt="Character 1">
+                <p>Mario</p>
+            </div>
+            <div class="character-card" onclick="selectCharacter(this, '/api/placeholder/100/100')">
+                <img src="/api/placeholder/100/100" alt="Character 2">
+                <p>Sonic</p>
+            </div>
+            <div class="character-card" onclick="selectCharacter(this, '/api/placeholder/100/100')">
+                <img src="/api/placeholder/100/100" alt="Character 3">
+                <p>Homer</p>
+            </div>
+            <div class="character-card" onclick="selectCharacter(this, '/api/placeholder/100/100')">
+                <img src="/api/placeholder/100/100" alt="Character 4">
+                <p>Einstein</p>
+            </div>
+        </div>
     </div>
-    <p id="load">Firebase SDK Loading&hellip;</p>
 
-    
-  </body>
+    <!-- Song Selection Screen -->
+    <div class="screen" id="songSelect">
+        <div class="header">
+            <h1>Select a Song</h1>
+            <p>Choose the victory song!</p>
+        </div>
+        <div class="song-list">
+            <div class="song-item" onclick="selectSong('song1.mp3')">
+                <h3>Hip Hop Song 1</h3>
+                <p>Artist Name</p>
+            </div>
+            <div class="song-item" onclick="selectSong('song2.mp3')">
+                <h3>Hip Hop Song 2</h3>
+                <p>Artist Name</p>
+            </div>
+            <div class="song-item" onclick="selectSong('song3.mp3')">
+                <h3>Hip Hop Song 3</h3>
+                <p>Artist Name</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Race Screen -->
+    <div class="screen" id="raceScreen">
+        <div class="race-container" id="raceTrack">
+            <button id="startButton" onclick="startRace()">Start Race</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
 </html>
