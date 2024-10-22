@@ -33,14 +33,20 @@ function selectSong(songFile) {
 function setupRace() {
     const raceTrack = document.getElementById('raceTrack');
     
-    // Create marbles
+    // Create marbles with images inside
     selectedCharacters.forEach((char, index) => {
         const marble = document.createElement('div');
         marble.className = 'marble';
         marble.id = `marble${index}`;
-        marble.style.backgroundImage = `url(${char})`;
+        
+        const img = document.createElement('img');
+        img.src = char;
+        img.alt = `Character ${index + 1}`;
+        
+        marble.appendChild(img);
         marble.style.left = `${25 + (index * 50)}%`;
-        marble.style.top = '0';
+        marble.style.top = '0px';
+        
         raceTrack.appendChild(marble);
     });
 }
@@ -52,36 +58,39 @@ function startRace() {
 
     const marble1 = document.getElementById('marble0');
     const marble2 = document.getElementById('marble1');
-
+    
     let pos1 = 0;
     let pos2 = 0;
     const trackHeight = document.getElementById('raceTrack').offsetHeight - 50;
+    
+    // Add initial delay before start
+    setTimeout(() => {
+        function animate() {
+            if (pos1 >= trackHeight && pos2 >= trackHeight) return;
 
-    function animate() {
-        if (pos1 >= trackHeight && pos2 >= trackHeight) return;
+            // Increased speed and added randomness
+            pos1 += Math.random() * 10 + 5; // Minimum speed of 5, max of 15
+            pos2 += Math.random() * 10 + 5;
 
-        // Increased speed by multiplying random value by 8 (was 5 before)
-        pos1 += Math.random() * 8;
-        pos2 += Math.random() * 8;
+            // Add gravity acceleration
+            pos1 *= 1.02;
+            pos2 *= 1.02;
 
-        // Add some acceleration factor
-        pos1 *= 1.01;
-        pos2 *= 1.01;
+            marble1.style.top = `${Math.min(pos1, trackHeight)}px`;
+            marble2.style.top = `${Math.min(pos2, trackHeight)}px`;
 
-        marble1.style.top = `${Math.min(pos1, trackHeight)}px`;
-        marble2.style.top = `${Math.min(pos2, trackHeight)}px`;
-
-        if (pos1 < trackHeight || pos2 < trackHeight) {
-            requestAnimationFrame(animate);
-        } else {
-            // Race finished
-            const winner = pos1 > pos2 ? 0 : 1;
-            setTimeout(() => {
-                alert(`Character ${winner + 1} wins and will sing the song!`);
-                // Here you would play the selected song
-            }, 500);
+            if (pos1 < trackHeight || pos2 < trackHeight) {
+                requestAnimationFrame(animate);
+            } else {
+                // Race finished
+                const winner = pos1 > pos2 ? 0 : 1;
+                setTimeout(() => {
+                    alert(`Character ${winner + 1} wins and will sing the song!`);
+                    // Here you would play the selected song
+                }, 500);
+            }
         }
-    }
 
-    animate();
+        animate();
+    }, 1000); // 1 second delay before race starts
 }
